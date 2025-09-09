@@ -49,12 +49,10 @@ services:
     ports:
       - 1337:80
     environment:
-      - FRONTEND_HOST
       - NGINX_ENTRYPOINT_QUIET_LOGS=1
     depends_on:
       - backend
       - frontend
-
 
 volumes:
   shared-storage:
