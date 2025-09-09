@@ -9,9 +9,9 @@ services:
       - ./postgres:/docker-entrypoint-initdb.d
       - lottery-database:/var/lib/postgresql/data
     environment:
-      - POSTGRES_USER=lottery
-      - POSTGRES_PASSWORD=lottery
-      - POSTGRES_DB=lottery
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     user: postgres
 
   backend:
@@ -53,9 +53,22 @@ services:
     depends_on:
       - backend
       - frontend
+    
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
 
 volumes:
   shared-storage:
+  rabbitmq-data:
   lottery-database:
      external: true
 

@@ -1,2 +1,4 @@
 fastapi[standard]
+taskiq~=0.11.18
+taskiq_aio_pika~=0.4.3
 uvicorn~=0.35.0
