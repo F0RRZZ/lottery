@@ -1,0 +1,12 @@
+ruff
+flake8
+flake8-bugbear
+flake8-cognitive-complexity
+flake8-commas
+flake8-comprehensions
+flake8-fastapi
+flake8-isort
+flake8-simplify
+flake8-pie
+flake8-print
+flake8-pytest

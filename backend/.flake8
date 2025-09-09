@@ -1,0 +1,29 @@
+[flake8]
+exclude =
+    .git,
+    .venv,
+    venv,
+    env,
+    migrations,
+    node_modules,
+    build,
+    dist,
+    *.egg-info,
+    __pycache__,
+    tests/fixtures,
+
+max-line-length = 79
+
+ignore =
+    DJ01
+    PIE803
+    T101
+    E800
+    PT019
+    I100
+
+per-file-ignores =
+    *.py: DALL000 
+
+[pep8]
+max-line-length = 79
