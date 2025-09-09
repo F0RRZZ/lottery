@@ -66,9 +66,15 @@ services:
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
 
+  redis:
+    image: redis:latest
+    container_name: lottery_redis
+    hostname: ${REDIS_HOST}
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+
 volumes:
   shared-storage:
   rabbitmq-data:
   lottery-database:
      external: true
-
