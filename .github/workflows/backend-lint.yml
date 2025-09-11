@@ -27,8 +27,8 @@ jobs:
         pip install -r backend/requirements/prod.txt
         pip install -r backend/requirements/dev.txt
     - name: Lint with flake8
-      run: |
-        flake8 .
+      working-directory: ./backend
+      run: flake8 .
     - name: Check with ruff
-      run:
-        ruff check .
+      working-directory: ./backend
+      run: ruff check .
