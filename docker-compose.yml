@@ -1,5 +1,9 @@
 version: '3'
 
+networks:
+  lottery_network:
+    driver: bridge
+
 services:
   db:
     image: postgres:15
@@ -13,6 +17,13 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
     user: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - lottery_network
 
   backend:
     container_name: lottery-backend
@@ -25,7 +36,12 @@ services:
     ports:
       - 8000:8000
     depends_on:
-     - db
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - lottery_network
 
   frontend:
     container_name: lottery-frontend
@@ -37,6 +53,8 @@ services:
       - /app/node_modules
     ports:
       - 3000:3000
+    networks:
+      - lottery_network
 
   nginx:
     image: nginx:1.29-alpine
@@ -53,6 +71,8 @@ services:
     depends_on:
       - backend
       - frontend
+    networks:
+      - lottery_network
     
   rabbitmq:
     image: rabbitmq:3-management-alpine
@@ -65,6 +85,8 @@ services:
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
+    networks:
+      - lottery_network
 
   redis:
     image: redis:latest
@@ -72,6 +94,30 @@ services:
     hostname: ${REDIS_HOST}
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - lottery_network
+
+  pgadmin:
+    image: dpage/pgadmin4:9.4
+    container_name: lottery-pgadmin
+    ports:
+      - "5050:5050"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+      PGADMIN_LISTEN_PORT: 5050
+    volumes:
+      - lottery-database:/var/lib/postgresql/data
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - lottery_network
 
 volumes:
   shared-storage:

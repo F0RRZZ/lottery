@@ -22,4 +22,5 @@ exclude = [
     "dist",
     "node_modules",
     "venv",
+    "alembic",
 ]
