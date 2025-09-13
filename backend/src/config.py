@@ -14,8 +14,10 @@ class Settings(BaseSettings):
         env_ignore_empty=True,
     )
 
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 15
+    REFRESH_TOKEN_EXPIRE_DAYS: int = 7
     ALGORITHM: str = 'HS256'
+    SECRET_KEY: str = 'dummy-key'
 
     DB_HOST: str = 'db'
     DB_PASSWORD: str = 'lottery'

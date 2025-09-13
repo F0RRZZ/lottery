@@ -18,6 +18,8 @@ anyio==4.10.0
     #   starlette
     #   taskiq
     #   watchfiles
+asyncpg==0.30.0
+    # via -r requirements/prod.in
 bcrypt==4.3.0
     # via passlib
 certifi==2025.8.3
@@ -48,6 +50,8 @@ fastapi-cli[standard]==0.0.10
     # via fastapi
 fastapi-cloud-cli==0.1.5
     # via fastapi-cli
+greenlet==3.2.4
+    # via -r requirements/prod.in
 h11==0.16.0
     # via
     #   httpcore

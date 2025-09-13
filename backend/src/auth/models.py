@@ -1,11 +1,11 @@
 from sqlalchemy import Boolean
 from sqlalchemy import DateTime
+from sqlalchemy import func
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 
-from core.database import Base
-from core.database import utc_now
+from src.database import Base
 
 
 class User(Base):
@@ -24,10 +24,10 @@ class User(Base):
     patronymic: Mapped[str] = mapped_column(String(100), nullable=True)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     created_at: Mapped[DateTime] = mapped_column(
-        DateTime, default=utc_now,
+        DateTime, default=func.now(),
     )
     updated_at: Mapped[DateTime] = mapped_column(
-        DateTime, default=utc_now, onupdate=utc_now,
+        DateTime, default=func.now(), onupdate=func.now(),
     )
 
     def __repr__(self):

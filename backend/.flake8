@@ -22,6 +22,7 @@ ignore =
     E800
     PT019
     I100
+    B008
 
 per-file-ignores =
     *.py: DALL000 

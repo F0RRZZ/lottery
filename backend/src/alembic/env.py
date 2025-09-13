@@ -5,9 +5,9 @@ from alembic import context
 from sqlalchemy import pool
 from sqlalchemy.ext.asyncio import create_async_engine
 
-from auth.models import User
-from config import settings
-from core.database import Base
+from src.auth.models import User
+from src.config import settings
+from src.database import Base
 
 config = context.config
 
