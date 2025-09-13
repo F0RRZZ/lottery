@@ -48,5 +48,5 @@ class UserRepository:
             select(User).where(User.username == username),
         )
         if not user or not verify_password(password, user.password):
-            return
+            return None
         return user

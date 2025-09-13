@@ -32,7 +32,7 @@ class Settings(BaseSettings):
 
     @computed_field
     @property
-    def ASYNC_DATABASE_URL(self) -> str:
+    def ASYNC_DATABASE_URL(self) -> str:  # noqa: N802
         return str(
             MultiHostUrl.build(
                 scheme='postgresql+asyncpg',
