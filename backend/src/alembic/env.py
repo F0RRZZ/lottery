@@ -8,6 +8,8 @@ from sqlalchemy.ext.asyncio import create_async_engine
 from src.auth.models import User
 from src.config import settings
 from src.database import Base
+from src.lotteries.models import Lottery
+from src.tickets.models import Ticket
 
 config = context.config
 
