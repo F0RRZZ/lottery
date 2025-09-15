@@ -1,4 +1,4 @@
-<img src="assets/lottery-white.svg">
+<img src="assets/lottery-yellow-green.svg">
 
 Хагажеев Марат, Конников Глеб, 23-КБ-ПР1
 
