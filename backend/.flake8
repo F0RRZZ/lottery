@@ -26,6 +26,7 @@ ignore =
     I201
     PIE798
     PIE793
+    F821
 
 per-file-ignores =
     *.py: DALL000 

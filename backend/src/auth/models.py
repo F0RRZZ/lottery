@@ -24,7 +24,9 @@ class User(TimestampMixin, Base):
     patronymic: Mapped[str] = mapped_column(String(100), nullable=True)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
 
-    tickets: Mapped[list['Tickets']] = relationship('Ticket', back_populates='lottery')
+    tickets: Mapped[list['Tickets']] = relationship(
+        'Ticket', back_populates='lottery',
+    )
 
     def __repr__(self):
         return (

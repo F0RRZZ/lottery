@@ -14,8 +14,11 @@ class Lottery(TimestampMixin, Base):
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     start_at: Mapped[DateTime] = mapped_column(DateTime)
+    ended_at: Mapped[DateTime] = mapped_column(DateTime)
     numbers: Mapped[list[int]] = mapped_column(
         ARRAY(Integer, dimensions=1), nullable=False,
     )
 
-    tickets: Mapped[list['Tickets']] = relationship('Ticket', back_populates='lottery')
+    tickets: Mapped[list['Tickets']] = relationship(
+        'Ticket', back_populates='lottery',
+    )
