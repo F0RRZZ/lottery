@@ -13,16 +13,15 @@ const bigDraws = ref([
 ]);
 
 const curBigDrawIndex = ref(0);
-const nameOfImgTransition = ref("");
+const nameOfImgTransition = ref('');
 
 const nextLeftDraw = () => {
-  nameOfImgTransition.value = "change-draw-left";
-  curBigDrawIndex.value =
-    (curBigDrawIndex.value - 1 + bigDraws.value.length) % bigDraws.value.length;
+    nameOfImgTransition.value = 'change-draw-left'
+  curBigDrawIndex.value = (curBigDrawIndex.value - 1 + bigDraws.value.length) % bigDraws.value.length;
 };
 
 const nextRightDraw = () => {
-  nameOfImgTransition.value = "change-draw-right";
+    nameOfImgTransition.value = 'change-draw-right';
   curBigDrawIndex.value = (curBigDrawIndex.value + 1) % bigDraws.value.length;
 };
 </script>
@@ -61,11 +60,11 @@ const nextRightDraw = () => {
 .carousel-div {
   display: flex;
   justify-content: space-between;
-  margin: 50px 15px 50px 15px;
+  margin: 65px 20px 65px 20px;
 }
 
 .img-arrow {
-  width: 50px;
+  width: 70px;
   cursor: pointer;
 }
 
@@ -82,6 +81,7 @@ const nextRightDraw = () => {
   overflow-x: auto;
   border-radius: 40px;
   box-shadow: 0px 0px 25px grey;
+  transition: border-radius 0.3s ease;
 }
 
 .gallery::-webkit-scrollbar {
@@ -94,17 +94,34 @@ const nextRightDraw = () => {
 
 .gallery img {
   width: 100%;
-  border-radius: 40px;
-  margin-right: 10px;
   cursor: pointer;
   will-change: transform, opacity;
+}
+
+@media  (max-width: 1025px) {
+    .gallery {
+        border-radius: 30px;
+    }
+}
+
+@media  (max-width: 600px) {
+    .gallery {
+        border-radius: 20px;
+    }
+}
+
+@media  (max-width: 450px) {
+    .gallery {
+        border-radius: 10px;
+    }
 }
 </style>
 
 <style scoped>
+
 .change-draw-left-enter-active,
 .change-draw-left-leave-active {
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .change-draw-left-enter-from {
@@ -126,12 +143,14 @@ const nextRightDraw = () => {
   opacity: 0;
   transform: translateX(100%);
 }
+
 </style>
 
 <style scoped>
+
 .change-draw-right-enter-active,
 .change-draw-right-leave-active {
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .change-draw-right-enter-from {
@@ -153,4 +172,5 @@ const nextRightDraw = () => {
   opacity: 0;
   transform: translateX(-100%);
 }
+
 </style>
