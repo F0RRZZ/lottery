@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineProps } from "vue";
+import { defineProps } from "vue";
 
 defineProps({
     headerDivButtonText: String
@@ -23,6 +23,7 @@ defineProps({
 .header-p-logo {
     font-size: 2em;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .header-div-button {
@@ -32,5 +33,6 @@ defineProps({
     border: 0px;
     border-radius: 15px;
     padding: 7px 30px 7px 30px;
+    cursor: pointer;
 }
 </style>

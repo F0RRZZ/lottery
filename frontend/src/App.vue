@@ -1,9 +1,9 @@
 <script setup>
-import Header from "./components/Header.vue"
+import MainPage from "./views/MainPage.vue"
 </script>
 
 <template>
-    <Header headerDivButtonText="Вход и регистрация" />
+    <MainPage />
 </template>
 
 <style scoped>
