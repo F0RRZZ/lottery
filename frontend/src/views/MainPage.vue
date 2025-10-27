@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, ref } from "vue"
 
-import Header from "../components/Header.vue";
+import Header from "../components/MainHeader.vue";
 import CarouselWithArrows from "../components/CarouselWithArrows.vue"
 import EventsCard from "../components/EventsCard.vue"
 

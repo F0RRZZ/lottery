@@ -3,85 +3,34 @@ import { ref, reactive, defineEmits } from "vue";
 
 const showPassword = ref(false);
 const showError = ref(false);
-const showSuccess = ref(false);
-const showRegisterMessage = ref(false);
-const registerURL = "http://localhost:8000/auth/register";
+const registerURL = "http://localhost:8000/auth/token";
 
 const submitBody = reactive({
-  email: "",
   username: "",
-  name: "",
-  surname: "",
-  patronymic: "",
   password: "",
 });
 
 const emptyBody = {
-  email: "",
   username: "",
-  name: "",
-  surname: "",
-  patronymic: "",
   password: "",
 };
 
-const onSubmit = async () => {
-  showRegisterMessage.value = false;
-  try {
-    const response = await fetch(registerURL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(submitBody),
-    });
-    const data = await response.json();
-
-    Object.assign(submitBody, emptyBody);
-    showSuccess.value = true;
-  } catch (err) {
-    showError.value = true;
-  }
-  showRegisterMessage.value = true;
-};
+const onSubmit = async () => {};
 </script>
 
 <template>
   <div class="main-div">
     <router-link class="header-logo" to="/">лотерея</router-link>
     <div class="form-div">
-      <p class="header-p-form">Регистрация</p>
+      <p class="header-p-form">Вход в аккаунт</p>
 
       <form id="registerForm" @submit.prevent="onSubmit">
         <div class="inputs-div">
-          <input
-            v-model="submitBody.email"
-            type="email"
-            required
-            placeholder="Почта"
-          />
           <input
             v-model="submitBody.username"
             type="text"
             required
             placeholder="Имя пользователя"
-          />
-          <input
-            v-model="submitBody.name"
-            type="text"
-            required
-            placeholder="Имя"
-          />
-          <input
-            v-model="submitBody.surname"
-            type="text"
-            required
-            placeholder="Фамилия"
-          />
-          <input
-            v-model="submitBody.patronymic"
-            type="text"
-            placeholder="Отчество (необязательно)"
           />
           <div class="password-div">
             <input
@@ -96,25 +45,21 @@ const onSubmit = async () => {
               <input type="checkbox" v-model="showPassword" />
             </div>
             <p
-              v-if="showRegisterMessage"
-              :class="showError ? 'error-p' : 'success-p'"
-              v-text="
-                showError
-                  ? 'Ошибка регистрации! Попробуйте ещё раз.'
-                  : 'Регистрация успешна! Выполните вход.'
-              "
+              v-if="showError"
+              class="error-p"
+              v-text="'Ошибка входа! Попробуйте ещё раз.'"
             ></p>
           </div>
         </div>
       </form>
-      <div>
-        <button form="registerForm">Зарегистрироваться</button>
+      <div class="button-div">
+        <button form="registerForm">Войти</button>
         <p>
-          <span>Уже есть аккаунт? </span>
+          <span>Ещё нет аккаунта? </span>
           <router-link
             style="cursor: pointer; text-decoration: none"
-            to="/login"
-            >Войти.</router-link
+            to="/register"
+            >Зарегистрироваться.</router-link
           >
         </p>
       </div>
@@ -193,14 +138,6 @@ input[type="checkbox"] {
 
 .error-p {
   color: red;
-}
-
-.succes-p {
-  color: rgb(0, 255, 26);
-}
-
-.error-p,
-.succes-p {
   padding-left: 5px;
   font-weight: bold;
 }
@@ -213,6 +150,12 @@ button {
   font-weight: bold;
   cursor: pointer;
   margin-bottom: 20px;
+}
+
+.button-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 input,
