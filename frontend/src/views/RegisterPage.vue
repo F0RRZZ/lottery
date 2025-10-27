@@ -1,0 +1,192 @@
+<script setup>
+import { ref, reactive, defineEmits } from "vue";
+
+const emit = defineEmits(['getToken']);
+
+const showPassword = ref(false);
+const registerURL = 'http://localhost:8000/auth/register';
+
+const submitBody = reactive({
+    email: '',
+    username: '',
+    name: '',
+    surname: '',
+    patronymic: '',
+    password: ''
+});
+
+const emptyBody = {
+    email: '',
+    username: '',
+    name: '',
+    surname: '',
+    patronymic: '',
+    password: ''
+};
+
+const onSubmit = async () => {
+    try {
+    const response = await fetch(registerURL, {
+        method: 'POST',
+        headers: {
+            'Content-Type' : 'application/json'
+        },
+        body : JSON.stringify(submitBody)
+    });
+    const data = await response.json();
+
+    Object.assign(submitBody, emptyBody);
+    
+    emit('getToken', {
+        username : data.username,
+        password : submitBody.password
+    });
+
+    } catch (err) {
+        alert('Ошибка регистрации, пожалуйста, попробуйте ещё раз!')
+    }
+}
+</script>
+
+<template>
+  <div class="main-div">
+    <p class="header-p-logo">лотерея</p>
+    <div class="form-div">
+      <p class="header-p-form">Регистрация</p>
+
+      <form id="registerForm" @submit.prevent="onSubmit">
+        <div class="inputs-div">
+          <input
+            v-model="submitBody.email"
+            type="email"
+            required
+            placeholder="Почта"
+          />
+          <input
+            v-model="submitBody.username"
+            type="text"
+            required
+            placeholder="Имя пользователя"
+          />
+          <input
+            v-model="submitBody.name"
+            type="text"
+            required
+            placeholder="Имя"
+          />
+          <input
+            v-model="submitBody.surname"
+            type="text"
+            required
+            placeholder="Фамилия"
+          />
+          <input
+            v-model="submitBody.patronymic"
+            type="text"
+            placeholder="Отчество (необязательно)"
+          />
+          <div class="password-div">
+            <input
+              v-model="submitBody.password"
+              :type="showPassword ? 'text' : 'password'"
+              minlength="8"
+              required
+              placeholder="Пароль"
+            />
+            <div class="checkbox-div">
+              <span class="show-password-span">Показать пароль</span>
+              <input type="checkbox" v-model="showPassword" />
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <button form="registerForm">Зарегистрироваться</button>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.main-div {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-image: url("/register-page/background-image-register-page.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
+
+.header-p-logo {
+  cursor: pointer;
+}
+
+.header-p-form,
+.header-p-logo {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.form-div {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2em;
+}
+
+.inputs-div {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+}
+
+input {
+  width: 400px;
+  padding-left: 10px;
+  border: 2px solid grey;
+}
+
+input[type="checkbox"] {
+  width: 17px;
+  cursor: pointer;
+}
+
+.password-div {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkbox-div {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  padding-left: 5px;
+}
+
+button {
+  width: 200px;
+  color: white;
+  background-color: #b25dfd;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+input,
+button {
+  height: 40px;
+  border-radius: 10px;
+  font-size: 1em;
+}
+
+@media (max-width: 450px) {
+  input {
+    width: 300px;
+  }
+}
+</style>

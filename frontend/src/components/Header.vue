@@ -56,7 +56,7 @@ defineProps({
   .header-div-button {
     font-size: 0.95em;
     border-radius: 11px;
-    padding: 9px 20px 9px 20px;
+    padding: 9px 20px 9px 2px;
   }
 }
 </style>
