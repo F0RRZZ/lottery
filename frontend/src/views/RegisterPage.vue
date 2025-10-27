@@ -100,13 +100,22 @@ const onSubmit = async () => {
             <p
               v-if="showRegisterMessage"
               :class="showError ? 'error-p' : 'success-p'"
-              v-text="showError ? 'Ошибка регистрации! Попробуйте ещё раз.' : 'Регистрация успешна! Выполните вход.'"
+              v-text="
+                showError
+                  ? 'Ошибка регистрации! Попробуйте ещё раз.'
+                  : 'Регистрация успешна! Выполните вход.'
+              "
             ></p>
           </div>
         </div>
       </form>
-
-      <button form="registerForm">Зарегистрироваться</button>
+      <div>
+        <button form="registerForm">Зарегистрироваться</button>
+        <p>
+          <span>Уже есть аккаунт? </span>
+          <span style="cursor: pointer; color: blue">Войти.</span>
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -155,9 +164,11 @@ input {
   border: 2px solid grey;
 }
 
-input:focus, input:active, input:hover {
-    outline: none;
-    border: 2px solid #b25dfd;
+input:focus,
+input:active,
+input:hover {
+  outline: none;
+  border: 2px solid #b25dfd;
 }
 
 input[type="checkbox"] {
