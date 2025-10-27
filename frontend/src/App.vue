@@ -18,7 +18,7 @@ const getToken = async (info) => {
 </script>
 
 <template>
-  <RegisterPage />
+  <router-view></router-view>
 </template>
 
 <style scoped></style>

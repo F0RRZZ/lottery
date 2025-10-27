@@ -1,8 +1,6 @@
 <script setup>
 import { ref, reactive, defineEmits } from "vue";
 
-const emit = defineEmits(["getToken"]);
-
 const showPassword = ref(false);
 const showError = ref(false);
 const showSuccess = ref(false);
@@ -50,7 +48,7 @@ const onSubmit = async () => {
 
 <template>
   <div class="main-div">
-    <p class="header-p-logo">лотерея</p>
+    <router-link class="header-logo" to="/">лотерея</router-link>
     <div class="form-div">
       <p class="header-p-form">Регистрация</p>
 
@@ -113,7 +111,7 @@ const onSubmit = async () => {
         <button form="registerForm">Зарегистрироваться</button>
         <p>
           <span>Уже есть аккаунт? </span>
-          <span style="cursor: pointer; color: blue">Войти.</span>
+          <router-link style="cursor: pointer; text-decoration: none;" to="/login">Войти.</router-link>
         </p>
       </div>
     </div>
@@ -133,12 +131,14 @@ const onSubmit = async () => {
   background-size: 100% 100%;
 }
 
-.header-p-logo {
+.header-logo {
   cursor: pointer;
+  text-decoration: none;  
+  color: black;
 }
 
 .header-p-form,
-.header-p-logo {
+.header-logo  {
   font-size: 2em;
   font-weight: bold;
 }
