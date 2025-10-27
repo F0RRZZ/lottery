@@ -12,6 +12,8 @@ const getToken = async (info) => {
     },
     body: JSON.stringify(info),
   });
+
+  
 };
 </script>
 
