@@ -3,19 +3,8 @@ import { ref, defineProps } from "vue";
 
 defineProps({
   title: String,
+  cardsDraw: Array,
 });
-
-const cardsDraw = ref([
-  {
-    id: 0,
-    image: "/main-page/example-small-card-draw-1.png",
-  },
-    {
-    id: 1,
-    image: "/main-page/example-small-card-draw-2.png",
-  },
-
-]);
 </script>
 
 <template>
@@ -66,5 +55,34 @@ const cardsDraw = ref([
   box-shadow: 0px 0px 25px grey;
   transition: border-radius 0.3s ease;
   cursor: pointer;
+}
+
+@media (max-width: 1025px) {
+  .group-of-carousel img {
+    width: 365px;
+    border-radius: 34px;
+  }
+}
+
+@media (max-width: 700px) {
+  .p-title {
+    font-size: 1.6em;
+  }
+
+  .group-of-carousel img {
+    width: 280px;
+    border-radius: 27px;
+  }
+}
+
+@media (max-width: 450px) {
+  .p-title {
+    font-size: 1.45em;
+  }
+
+  .group-of-carousel img {
+    width: 195px;
+    border-radius: 20px;
+  }
 }
 </style>

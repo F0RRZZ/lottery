@@ -13,15 +13,16 @@ const bigDraws = ref([
 ]);
 
 const curBigDrawIndex = ref(0);
-const nameOfImgTransition = ref('');
+const nameOfImgTransition = ref("");
 
 const nextLeftDraw = () => {
-    nameOfImgTransition.value = 'change-draw-left'
-  curBigDrawIndex.value = (curBigDrawIndex.value - 1 + bigDraws.value.length) % bigDraws.value.length;
+  nameOfImgTransition.value = "change-draw-left";
+  curBigDrawIndex.value =
+    (curBigDrawIndex.value - 1 + bigDraws.value.length) % bigDraws.value.length;
 };
 
 const nextRightDraw = () => {
-    nameOfImgTransition.value = 'change-draw-right';
+  nameOfImgTransition.value = "change-draw-right";
   curBigDrawIndex.value = (curBigDrawIndex.value + 1) % bigDraws.value.length;
 };
 </script>
@@ -98,30 +99,70 @@ const nextRightDraw = () => {
   will-change: transform, opacity;
 }
 
-@media  (max-width: 1025px) {
-    .gallery {
-        border-radius: 30px;
-    }
+@media (max-width: 1025px) {
+  .gallery {
+    border-radius: 30px;
+  }
+
+  .carousel-div {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+
+  .img-arrow {
+    width: 40px;
+    cursor: pointer;
+  }
+
+  .img-arrow-left {
+    margin-right: 5px;
+  }
+
+  .img-arrow-right {
+    margin-left: 5px;
+  }
 }
 
-@media  (max-width: 600px) {
-    .gallery {
-        border-radius: 20px;
-    }
+@media (max-width: 700px) {
+  .gallery {
+    border-radius: 20px;
+  }
+
+  .carousel-div {
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+
+  .img-arrow {
+    width: 25px;
+    cursor: pointer;
+  }
 }
 
-@media  (max-width: 450px) {
-    .gallery {
-        border-radius: 10px;
-    }
+@media (max-width: 450px) {
+  .gallery {
+    border-radius: 15px;
+  }
+
+  .img-arrow {
+    width: 15px;
+    cursor: pointer;
+  }
+
+  .img-arrow-left {
+    margin-right: 0px;
+  }
+
+  .img-arrow-right {
+    margin-left: 0px;
+  }
 }
 </style>
 
 <style scoped>
-
 .change-draw-left-enter-active,
 .change-draw-left-leave-active {
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .change-draw-left-enter-from {
@@ -143,14 +184,12 @@ const nextRightDraw = () => {
   opacity: 0;
   transform: translateX(100%);
 }
-
 </style>
 
 <style scoped>
-
 .change-draw-right-enter-active,
 .change-draw-right-leave-active {
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .change-draw-right-enter-from {
@@ -172,5 +211,4 @@ const nextRightDraw = () => {
   opacity: 0;
   transform: translateX(-100%);
 }
-
 </style>
