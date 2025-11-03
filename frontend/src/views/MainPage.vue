@@ -13,6 +13,9 @@ const changeHeaderDivButton = () => {
         headerDivButtonText.value = 'Вход и регистрация'
         headerDivButtonLink.value = '/login'
         return
+    } else {
+        headerDivButtonText.value = 'Мой профиль'
+        headerDivButtonLink.value = '/profile'
     }
 };
 

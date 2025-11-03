@@ -1,21 +1,41 @@
 <script setup>
 import { ref, reactive, defineEmits } from "vue";
+import { useRouter } from "vue-router";
 
 const showPassword = ref(false);
 const showError = ref(false);
-const registerURL = "http://localhost:8000/auth/token";
+const loginURL = "http://localhost:8000/auth/token";
+const router = useRouter();
 
 const submitBody = reactive({
   username: "",
   password: "",
 });
 
-const emptyBody = {
-  username: "",
-  password: "",
+const onSubmit = async () => {
+    showError.value = false;
+    try {
+        const response = await fetch(loginURL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: `username=${submitBody.username}&password=${submitBody.password}`
+        })
+        const data = await response.json();
+
+        localStorage.setItem('access_token', data.access_token);
+        localStorage.setItem('refresh_token', data.refresh_token);
+
+        goToMainPage();
+    } catch (err) {
+        showError.value = true;
+    }
 };
 
-const onSubmit = async () => {};
+const goToMainPage = () => {
+    router.push('/');
+}
 </script>
 
 <template>
