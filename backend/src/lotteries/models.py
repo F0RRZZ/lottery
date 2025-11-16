@@ -19,6 +19,6 @@ class Lottery(TimestampMixin, Base):
         ARRAY(Integer, dimensions=1), nullable=False,
     )
 
-    tickets: Mapped[list['Tickets']] = relationship(
+    tickets = relationship(
         'Ticket', back_populates='lottery',
     )

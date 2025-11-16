@@ -11,7 +11,7 @@ Ticket: TypeAlias = list[list[list[Optional[int]]]]
 class TicketGenerator:
     MAX_ATTEMPTS = 100
 
-    def __init__(self, tickets_count: Optional[int] = None) -> None:
+    def __init__(self, tickets_count: int = 1) -> None:
         if tickets_count > 1_000_000:
             raise exceptions.TicketsCountExceedError
         self.limit = tickets_count

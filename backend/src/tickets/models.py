@@ -9,6 +9,7 @@ from sqlalchemy.orm import relationship
 
 from src.core.models import TimestampMixin
 from src.database import Base
+from src.lotteries.models import Lottery
 
 
 class Ticket(TimestampMixin, Base):
@@ -25,7 +26,7 @@ class Ticket(TimestampMixin, Base):
         ARRAY(Integer, dimensions=2), nullable=False,
     )
 
-    user: Mapped['User'] = relationship('User', back_populates='tickets')
-    lottery: Mapped['Lottery'] = relationship(
-        'Lottery', back_populates='tickets',
+    user = relationship('User', back_populates='tickets')
+    lottery = relationship(
+        Lottery, back_populates='tickets',
     )
