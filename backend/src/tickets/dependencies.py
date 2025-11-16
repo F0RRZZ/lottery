@@ -11,5 +11,5 @@ from src.tickets.service import TicketService
 async def get_tickets_service(
     db: Annotated[AsyncSession, Depends(get_db)],
 ) -> TicketService:
-    user_repo = TicketRepository(db)
-    return TicketService(user_repo)
+    tickets_repo = TicketRepository(db)
+    return TicketService(tickets_repo)
