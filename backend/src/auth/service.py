@@ -10,7 +10,7 @@ from jose import JWTError
 
 from src.auth.constances import CREDENTIALS_EXCEPTION
 from src.auth.models import User
-from src.auth.repositories import UserRepository
+from src.auth.repository import UserRepository
 from src.auth.schemas import CreateUser
 from src.auth.schemas import TokenData
 from src.auth.schemas import UserResponse
@@ -40,8 +40,7 @@ class AuthService:
                 detail='Email already registered',
             )
 
-        user_dict = user_data.model_dump()
-        user = await self.user_repo.create_user(user_dict)
+        user = await self.user_repo.create_user(user_data)
 
         return UserResponse.model_validate(user)
 
