@@ -10,7 +10,7 @@ from src.auth.utils import verify_password
 
 
 class UserRepository:
-    def __init__(self, session: AsyncSession):
+    def __init__(self, session: AsyncSession) -> None:
         self.session = session
 
     async def get_by_username(self, username: str) -> Optional[User]:

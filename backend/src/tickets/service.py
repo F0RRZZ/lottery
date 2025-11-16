@@ -5,6 +5,7 @@ from fastapi import status
 from sqlalchemy.exc import IntegrityError
 
 from src.auth.models import User
+from src.tickets.models import Ticket
 from src.tickets.repository import TicketRepository
 from src.tickets.schemas import TicketCreate
 from src.tickets.schemas import TicketResponse
@@ -16,16 +17,14 @@ class TicketService:
 
     async def get_tickets_list(self, user: User) -> List[TicketResponse]:
         tickets = await self.tickets_repo.get_tickets_list(user)
-        return [TicketResponse.model_validate(ticket) for ticket in tickets]
+        return [
+            TicketResponse.model_validate(ticket, from_attributes=True)
+            for ticket in tickets
+        ]
 
     async def get_ticket(self, user: User, ticket_id: int) -> TicketResponse:
-        ticket = await self.tickets_repo.get_ticket(user, ticket_id)
-        if ticket is None:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail=f'Ticket with id {ticket_id} is not found',
-            )
-        return TicketResponse.model_validate(ticket)
+        ticket = await self._get_ticket_or_404(user, ticket_id)
+        return TicketResponse.model_validate(ticket, from_attributes=True)
 
     async def create_ticket(
         self,
@@ -39,13 +38,17 @@ class TicketService:
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail='Invalid user or lottery id',
             )
-        return TicketResponse.model_validate(ticket)
+        return TicketResponse.model_validate(ticket, from_attributes=True)
 
     async def delete_ticket(self, user: User, ticket_id: int) -> None:
+        ticket = await self._get_ticket_or_404(user, ticket_id)
+        return await self.tickets_repo.delete_ticket(ticket)
+
+    async def _get_ticket_or_404(self, user: User, ticket_id: int) -> Ticket:
         ticket = await self.tickets_repo.get_ticket(user, ticket_id)
         if ticket is None or ticket.user_id != user.id:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail=f'Ticket with id {ticket_id} is not found',
             )
-        return await self.tickets_repo.delete_ticket(ticket)
+        return ticket
