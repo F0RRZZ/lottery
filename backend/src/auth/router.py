@@ -14,7 +14,7 @@ from src.auth.schemas import UserResponse
 from src.auth.service import AuthService
 
 router = APIRouter(
-    prefix='/auth',
+    prefix='/api/auth',
     tags=['auth'],
 )
 

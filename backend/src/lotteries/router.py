@@ -9,7 +9,7 @@ from src.lotteries.schemas import LotteryResponse
 from src.lotteries.service import LotteryService
 
 router = APIRouter(
-    prefix='/lottery',
+    prefix='/api/lottery',
     tags=['lottery'],
 )
 
