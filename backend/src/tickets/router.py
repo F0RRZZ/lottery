@@ -11,7 +11,7 @@ from src.tickets.schemas import TicketResponse
 from src.tickets.service import TicketService
 
 router = APIRouter(
-    prefix='/tickets',
+    prefix='/api/tickets',
     tags=['tickets'],
 )
 
