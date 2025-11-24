@@ -1,9 +1,11 @@
 from pathlib import Path
+from typing import Optional
 
 from pydantic import computed_field
 from pydantic_core import MultiHostUrl
 from pydantic_settings import BaseSettings
 from pydantic_settings import SettingsConfigDict
+import redis
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,14 +27,18 @@ class Settings(BaseSettings):
     DB_NAME: str = 'lottery'
     DB_USER: str = 'lottery'
 
-    RABBITMQ_DEFAULT_USER: str = 'guest'
-    RABBITMQ_DEFAULT_PASS: str = 'guest'
-
     REDIS_HOST: str = 'lottery_redis'
+    REDIS_PORT: int = 6379
+    REDIS_PASSWORD: Optional[str] = None
+
+    RABBITMQ_HOST: str = 'rabbitmq'
+    RABBITMQ_PORT: int = 5672
+    RABBITMQ_USER: str = 'guest'
+    RABBITMQ_PASSWORD: str = 'guest'
 
     @computed_field
     @property
-    def ASYNC_DATABASE_URL(self) -> str:  # noqa: N802
+    def ASYNC_DATABASE_URL(self) -> str:
         return str(
             MultiHostUrl.build(
                 scheme='postgresql+asyncpg',
@@ -44,5 +50,37 @@ class Settings(BaseSettings):
             ),
         )
 
+    @computed_field
+    @property
+    def RABBITMQ_URL(self) -> str:
+        return str(
+            MultiHostUrl.build(
+                scheme='amqp',
+                username=self.RABBITMQ_USER,
+                password=self.RABBITMQ_PASSWORD,
+                host=self.RABBITMQ_HOST,
+                port=self.RABBITMQ_PORT,
+            ),
+        )
+
+    @computed_field
+    @property
+    def REDIS_URL(self) -> str:
+        return str(
+            MultiHostUrl.build(
+                scheme='redis',
+                host=self.REDIS_HOST,
+                port=self.REDIS_PORT,
+            ),
+        )
+
 
 settings = Settings()
+
+redis_client = redis.Redis(
+    host=settings.REDIS_HOST,
+    port=settings.REDIS_PORT,
+    db=0,
+    password=settings.REDIS_PASSWORD,
+    decode_responses=True,
+)

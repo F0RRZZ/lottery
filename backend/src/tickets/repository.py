@@ -14,10 +14,20 @@ class TicketRepository:
     def __init__(self, session: AsyncSession) -> None:
         self.session = session
 
-    async def get_tickets_list(self, user: User) -> Sequence[Ticket]:
-        result = await self.session.execute(
-            select(Ticket).filter(Ticket.user_id == user.id),
-        )
+    async def get_tickets_list(
+        self,
+        lottery_id: Optional[int] = None,
+        user_id: Optional[int] = None,
+    ) -> Sequence[Ticket]:
+        query = select(Ticket)
+
+        if lottery_id:
+            query = query.filter(Ticket.lottery_id == lottery_id)
+
+        if user_id:
+            query = query.filter(Ticket.user_id == user_id)
+
+        result = await self.session.execute(query)
         return result.scalars().all()
 
     async def get_ticket(self, user: User, ticket_id: int) -> Optional[Ticket]:

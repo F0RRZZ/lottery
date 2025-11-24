@@ -23,6 +23,7 @@ class User(TimestampMixin, Base):
     surname: Mapped[str] = mapped_column(String(100), nullable=False)
     patronymic: Mapped[str] = mapped_column(String(100), nullable=True)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+    # is_admin: Mapped[bool] = mapped_column(Boolean, default=False)
 
     tickets = relationship(
         'Ticket', back_populates='user',

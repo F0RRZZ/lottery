@@ -40,6 +40,8 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
     networks:
       - lottery_network
 
@@ -76,13 +78,14 @@ services:
     
   rabbitmq:
     image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
     hostname: rabbitmq
     ports:
       - "5672:5672"
       - "15672:15672"
     environment:
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
     networks:
@@ -92,6 +95,8 @@ services:
     image: redis:latest
     container_name: lottery_redis
     hostname: ${REDIS_HOST}
+    ports:
+      - "6379:6379"
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
     healthcheck:
@@ -116,6 +121,22 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    networks:
+      - lottery_network
+  
+  taskiq-worker:
+    build:
+      context: backend/
+      dockerfile: taskiq.Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
     networks:
       - lottery_network
 

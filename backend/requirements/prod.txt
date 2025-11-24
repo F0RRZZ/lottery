@@ -134,6 +134,8 @@ pytz==2025.2
     # via taskiq
 pyyaml==6.0.2
     # via uvicorn
+redis==6.4.0
+    # via taskiq-redis
 rich==14.1.0
     # via
     #   rich-toolkit
@@ -164,10 +166,13 @@ taskiq==0.11.18
     # via
     #   -r requirements/prod.in
     #   taskiq-aio-pika
+    #   taskiq-redis
 taskiq-aio-pika==0.4.3
     # via -r requirements/prod.in
 taskiq-dependencies==1.5.7
     # via taskiq
+taskiq-redis==1.1.2
+    # via -r requirements/prod.in
 typer==0.17.4
     # via
     #   fastapi-cli

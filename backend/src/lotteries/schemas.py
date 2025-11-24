@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, List, Optional
 
 from pydantic import BaseModel
 
@@ -13,8 +13,17 @@ class LotteryResponse(BaseModel):
     start_at: datetime
     ended_at: Optional[datetime]
     numbers: List[int]
+    task_id: Optional[str]
 
 
 class LotteryCreate(BaseModel):
     name: str
     start_at: datetime
+
+
+class LotteryUpdate(BaseModel):
+    name: Optional[str] = None
+    numbers: Optional[List[Any]] = None
+
+    class Config:
+        from_attributes = True

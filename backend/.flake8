@@ -30,6 +30,7 @@ ignore =
 
 per-file-ignores =
     *.py: DALL000 
+    config.py: N802
 
 [pep8]
 max-line-length = 79

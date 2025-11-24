@@ -16,7 +16,7 @@ class TicketService:
         self.tickets_repo = tickets_repo
 
     async def get_tickets_list(self, user: User) -> List[TicketResponse]:
-        tickets = await self.tickets_repo.get_tickets_list(user)
+        tickets = await self.tickets_repo.get_tickets_list(user_id=user.id)
         return [
             TicketResponse.model_validate(ticket, from_attributes=True)
             for ticket in tickets

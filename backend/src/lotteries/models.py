@@ -20,6 +20,7 @@ class Lottery(TimestampMixin, Base):
     numbers: Mapped[list[int]] = mapped_column(
         ARRAY(Integer, dimensions=1), nullable=False,
     )
+    task_id: Mapped[str] = mapped_column(String(length=32), nullable=True)
 
     tickets = relationship(
         'Ticket', back_populates='lottery',
