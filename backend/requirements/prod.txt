@@ -86,6 +86,8 @@ markupsafe==3.0.2
     #   mako
 mdurl==0.1.2
     # via markdown-it-py
+msgspec==0.19.0
+    # via -r requirements/prod.in
 multidict==6.6.4
     # via yarl
 packaging==25.0
