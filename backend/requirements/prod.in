@@ -10,4 +10,5 @@ python-jose[cryptography]
 sqlalchemy~=2.0.43
 taskiq~=0.11.18
 taskiq_aio_pika~=0.4.3
+taskiq-redis~=1.1.2
 uvicorn~=0.35.0

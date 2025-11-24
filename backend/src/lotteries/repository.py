@@ -8,6 +8,7 @@ from sqlalchemy.sql.selectable import Select
 
 from src.lotteries.models import Lottery
 from src.lotteries.schemas import LotteryCreate
+from src.lotteries.schemas import LotteryUpdate
 from src.tickets.models import Ticket
 
 
@@ -41,6 +42,27 @@ class LotteryRepository:
         await self.session.commit()
         await self.session.refresh(lottery)
 
+        return lottery
+
+    async def update_lottery(
+        self,
+        lottery_id: int,
+        lottery_data: LotteryUpdate,
+    ) -> Optional[Lottery]:
+        lottery = await self.get_lottery(lottery_id)
+
+        if not lottery:
+            return None
+
+        update_data = lottery_data.model_dump(
+            exclude_unset=True,
+            exclude_none=True,
+        )
+        for field, value in update_data.items():
+            setattr(lottery, field, value)
+
+        await self.session.commit()
+        await self.session.refresh(lottery)
         return lottery
 
     async def delete_lottery(self, lottery: Union[int, Lottery]) -> None:

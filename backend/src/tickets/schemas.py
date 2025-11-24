@@ -10,6 +10,7 @@ class TicketResponse(BaseModel):
     user: UserResponse
     lottery_id: int
     numbers: List[Any]
+    status: str
 
 
 class TicketCreate(BaseModel):
