@@ -1,16 +1,9 @@
 <script setup>
 import { ref } from "vue";
 
-const bigDraws = ref([
-  {
-    id: 0,
-    image: "/main-page/example-big-draw-1.png",
-  },
-  {
-    id: 1,
-    image: "/main-page/example-big-draw-2.png",
-  },
-]);
+const props = defineProps({
+  lotteries: Array,
+});
 
 const curBigDrawIndex = ref(0);
 const nameOfImgTransition = ref("");
@@ -18,12 +11,13 @@ const nameOfImgTransition = ref("");
 const nextLeftDraw = () => {
   nameOfImgTransition.value = "change-draw-left";
   curBigDrawIndex.value =
-    (curBigDrawIndex.value - 1 + bigDraws.value.length) % bigDraws.value.length;
+    (curBigDrawIndex.value - 1 + props.lotteries.length) %
+    props.lotteries.length;
 };
 
 const nextRightDraw = () => {
   nameOfImgTransition.value = "change-draw-right";
-  curBigDrawIndex.value = (curBigDrawIndex.value + 1) % bigDraws.value.length;
+  curBigDrawIndex.value = (curBigDrawIndex.value + 1) % props.lotteries.length;
 };
 </script>
 
@@ -38,13 +32,20 @@ const nextRightDraw = () => {
 
     <div class="gallery">
       <div class="gallery-group-imgs">
-        <transition :name="nameOfImgTransition" mode="out-in">
-          <img
-            :key="curBigDrawIndex"
-            :src="bigDraws[curBigDrawIndex].image"
-            alt="big-draw-image"
-          />
-        </transition>
+        <router-link
+          :to="{
+            name: 'LotteryPage',
+            params: { id: lotteries[curBigDrawIndex].id },
+          }"
+        >
+          <transition :name="nameOfImgTransition" mode="out-in">
+            <img
+              :key="curBigDrawIndex"
+              :src="lotteries[curBigDrawIndex].image"
+              alt="big-draw-image"
+            />
+          </transition>
+        </router-link>
       </div>
     </div>
 
@@ -162,7 +163,7 @@ const nextRightDraw = () => {
 <style scoped>
 .change-draw-left-enter-active,
 .change-draw-left-leave-active {
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .change-draw-left-enter-from {
@@ -189,7 +190,7 @@ const nextRightDraw = () => {
 <style scoped>
 .change-draw-right-enter-active,
 .change-draw-right-leave-active {
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .change-draw-right-enter-from {

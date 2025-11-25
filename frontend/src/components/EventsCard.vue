@@ -3,7 +3,7 @@ import { ref, defineProps } from "vue";
 
 defineProps({
   title: String,
-  cardsDraw: Array,
+  lotteries: Array,
 });
 </script>
 
@@ -13,12 +13,9 @@ defineProps({
 
     <div class="carousel-div">
       <div class="group-of-carousel">
-        <img
-          v-for="item in cardsDraw"
-          :key="item.id"
-          :src="item.image"
-          :alt="'Розыгрыш №' + item.id"
-        />
+        <router-link v-for="item in lotteries" :key="item.id" :to="{name: 'LotteryPage', params: {id: item.id} }">
+          <img :src="item.image" :alt="'Розыгрыш №' + item.id" />
+        </router-link>
       </div>
     </div>
   </div>

@@ -8,6 +8,7 @@ import MainPage from "./views/MainPage.vue";
 import RegisterPage from "./views/RegisterPage.vue";
 import LoginPage from "./views/LoginPage.vue";
 import UserProfilePage from "./views/UserProfilePage.vue";
+import LotteryPage from "./views/LotteryPage.vue";
 
 const routes = [
   {
@@ -29,6 +30,11 @@ const routes = [
     path: "/user-profile",
     name: "UserProfilePage",
     component: UserProfilePage
+  },
+  {
+    path: "/lottery/:id",
+    name: "LotteryPage",
+    component: LotteryPage
   }
 ];
 
