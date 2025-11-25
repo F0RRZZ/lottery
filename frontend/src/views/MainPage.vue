@@ -15,7 +15,7 @@ const changeHeaderDivButton = () => {
         return
     } else {
         headerDivButtonText.value = 'Мой профиль'
-        headerDivButtonLink.value = '/profile'
+        headerDivButtonLink.value = '/user-profile'
     }
 };
 
