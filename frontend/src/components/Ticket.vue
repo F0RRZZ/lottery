@@ -28,8 +28,8 @@ defineProps({
     ></p>
   </div>
   <div class="play-fields-div">
-    <LottoPlayField :numbers="ticket.numbers.slice(0, 27)" />
-    <LottoPlayField :numbers="ticket.numbers.slice(27, 55)" />
+    <LottoPlayField class="lotto-play-field" :numbers="ticket.numbers.slice(0, 27)" />
+    <LottoPlayField class="lotto-play-field" :numbers="ticket.numbers.slice(27, 55)" />
   </div>
 </template>
 

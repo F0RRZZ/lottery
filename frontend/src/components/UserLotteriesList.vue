@@ -100,4 +100,10 @@ const lotteries = reactive([
   justify-content: flex-start;
   align-items: flex-start;
 }
+
+@media (max-width: 500px) {
+  .lotteries-div {
+    margin-left: 20px;
+  }
+}
 </style>

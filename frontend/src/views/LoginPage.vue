@@ -13,29 +13,29 @@ const submitBody = reactive({
 });
 
 const onSubmit = async () => {
-    showError.value = false;
-    try {
-        const response = await fetch(loginURL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: `username=${submitBody.username}&password=${submitBody.password}`
-        })
-        const data = await response.json();
+  showError.value = false;
+  try {
+    const response = await fetch(loginURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: `username=${submitBody.username}&password=${submitBody.password}`,
+    });
+    const data = await response.json();
 
-        localStorage.setItem('access_token', data.access_token);
-        localStorage.setItem('refresh_token', data.refresh_token);
+    localStorage.setItem("access_token", data.access_token);
+    localStorage.setItem("refresh_token", data.refresh_token);
 
-        goToMainPage();
-    } catch (err) {
-        showError.value = true;
-    }
+    goToMainPage();
+  } catch (err) {
+    showError.value = true;
+  }
 };
 
 const goToMainPage = () => {
-    router.push('/');
-}
+  router.push("/");
+};
 </script>
 
 <template>
@@ -74,7 +74,7 @@ const goToMainPage = () => {
       </form>
       <div class="button-div">
         <button form="registerForm">Войти</button>
-        <p>
+        <p class="register-p">
           <span>Ещё нет аккаунта? </span>
           <router-link
             style="cursor: pointer; text-decoration: none"
@@ -188,6 +188,10 @@ button {
 @media (max-width: 450px) {
   input {
     width: 300px;
+  }
+
+  .register-p {
+    text-align: center;
   }
 }
 </style>

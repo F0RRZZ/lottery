@@ -75,4 +75,35 @@ const text_info_name = ref({
   font-size: 1.1em;
   margin-bottom: 5px;
 }
+
+@media (max-width: 500px) {
+  .initials-p {
+    font-size: 1.4em;
+  }
+
+  .user-img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .info-row-p {
+    font-size: 0.95em;
+  }
+}
+
+@media (max-width: 400px) {
+  .user-img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .info-row-p {
+    font-size: 0.75em;
+  }
+
+  .user-img {
+    width: 70px;
+    height: 70px;
+  }
+}
 </style>

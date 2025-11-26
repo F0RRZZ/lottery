@@ -409,4 +409,110 @@ const headerDivButtonLink = ref("/");
   <LotteryUserTickets :userTickets="userTickets" />
 </template>
 <style scoped>
+::v-deep .tickets-div {
+  padding: 0px;
+}
+
+@media (max-width: 1025px) {
+  ::v-deep .number {
+    width: 60px;
+    height: 60px;
+  }
+
+  ::v-deep .numbers-div {
+    padding: 10px 10px 3px 10px;
+  }
+}
+
+@media (max-width: 700px) {
+  ::v-deep .p-header,
+  ::v-deep .winners-header,
+  ::v-deep .numbers-header,
+  ::v-deep .tickets-header {
+    font-size: 1.6em;
+  }
+
+  ::v-deep .p-time,
+  ::v-deep .numbers-of-winners {
+    font-size: 4.6em;
+  }
+}
+
+@media (max-width: 600px) {
+  ::v-deep .field-div {
+    grid-template-columns: repeat(9, 50px);
+    grid-template-rows: repeat(3, 50px);
+  }
+
+  ::v-deep .p-header,
+  ::v-deep .winners-header,
+  ::v-deep .numbers-header,
+  ::v-deep .tickets-header {
+    font-size: 1.5em;
+  }
+
+  ::v-deep .p-time,
+  ::v-deep .numbers-of-winners {
+    font-size: 4.2em;
+  }
+
+  ::v-deep button {
+    border-radius: 13px;
+    font-size: 1.2em;
+  }
+}
+
+@media (max-width: 500px) {
+  ::v-deep .field-div {
+    grid-template-columns: repeat(9, 40px);
+    grid-template-rows: repeat(3, 40px);
+  }
+
+  ::v-deep .number {
+    width: 45px;
+    height: 45px;
+    font-size: 1.8em;
+  }
+
+  ::v-deep .numbers-div {
+    padding: 6px 10px 0px 10px;
+  }
+
+  ::v-deep .p-header,
+  ::v-deep .winners-header,
+  ::v-deep .numbers-header,
+  ::v-deep .tickets-header {
+    font-size: 1.3em;
+  }
+
+  ::v-deep .p-time,
+  ::v-deep .numbers-of-winners {
+    font-size: 3.5em;
+  }
+
+  ::v-deep button {
+    border-radius: 11px;
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 410px) {
+  ::v-deep .cell-div {
+    font-size: 0.7em;
+  }
+
+  ::v-deep .status {
+    font-size: 0.7em;
+    width: 120px;
+  }
+
+  ::v-deep .field-div {
+    grid-template-columns: repeat(9, 30px);
+    grid-template-rows: repeat(3, 30px);
+  }
+
+  ::v-deep .ticket-name-p {
+    font-size: 0.8em;
+  }
+}
 </style>

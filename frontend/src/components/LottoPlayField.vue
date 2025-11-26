@@ -15,7 +15,6 @@ defineProps({
 <style scoped>
 .field-div {
     display: grid;
-    border-collapse: collapse;
     grid-template-columns: repeat(9, 60px);
     grid-template-rows: repeat(3, 60px);
 }

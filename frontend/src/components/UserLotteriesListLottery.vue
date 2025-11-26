@@ -13,6 +13,7 @@ defineProps({
     <p class="lottery-header">{{ lottery.name }}</p>
     <div class="tickets-div">
       <Ticket
+        class="ticket"
         v-for="ticket in lottery.tickets"
         :key="ticket.id"
         :ticket="ticket"
@@ -37,5 +38,39 @@ defineProps({
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+}
+
+@media (max-width: 700px) {
+  ::v-deep .field-div {
+    grid-template-columns: repeat(9, 40px);
+    grid-template-rows: repeat(3, 40px);
+  }
+}
+
+@media (max-width: 500px) {
+  ::v-deep .field-div {
+    grid-template-columns: repeat(9, 35px);
+    grid-template-rows: repeat(3, 35px);
+  }
+}
+
+@media (max-width: 400px) {
+  ::v-deep .cell-div {
+    font-size: 0.7em;
+  }
+
+  ::v-deep .status {
+    font-size: 0.7em;
+    width: 120px;
+  }
+
+  ::v-deep .field-div {
+    grid-template-columns: repeat(9, 25px);
+    grid-template-rows: repeat(3, 25px);
+  }
+
+  ::v-deep .ticket-name-p {
+    font-size: 0.8em;
+  }
 }
 </style>

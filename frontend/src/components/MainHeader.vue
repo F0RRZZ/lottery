@@ -3,19 +3,22 @@ import { defineProps } from "vue";
 
 defineProps({
   headerDivButtonText: String,
-  headerDivButtonLink: String
+  headerDivButtonLink: String,
 });
 </script>
 
 <template>
   <div class="header-div">
     <router-link class="header-logo" to="/">лотерея</router-link>
-    <router-link :to="headerDivButtonLink" class="header-div-button">{{ headerDivButtonText }}</router-link>
+    <router-link :to="headerDivButtonLink" class="header-div-button">{{
+      headerDivButtonText
+    }}</router-link>
   </div>
 </template>
 
 <style scoped>
 .header-div {
+  gap: 3px;
   display: flex;
   justify-content: space-between;
   padding: 20px;
@@ -25,7 +28,7 @@ defineProps({
   font-size: 2em;
   font-weight: bold;
   cursor: pointer;
-  text-decoration: none;  
+  text-decoration: none;
   color: black;
 }
 
@@ -60,7 +63,8 @@ defineProps({
   .header-div-button {
     font-size: 0.95em;
     border-radius: 11px;
-    padding: 9px 20px 9px 2px;
+    padding: 9px 20px 9px 20px;
+    text-align: center;
   }
 }
 </style>
