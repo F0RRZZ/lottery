@@ -12,7 +12,7 @@ defineProps({
   <div class="lottery-div">
     <p class="lottery-header">{{ lottery.name }}</p>
     <div class="tickets-div">
-      <Ticket class="ticket"
+      <Ticket
         v-for="ticket in lottery.tickets"
         :key="ticket.id"
         :ticket="ticket"
