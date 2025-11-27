@@ -38,6 +38,7 @@ class LotteryRepository:
             numbers=[],
             preview_big=lottery_data.preview_big,
             preview_small=lottery_data.preview_small,
+            lottery_type=lottery_data.lottery_type,
         )
 
         self.session.add(lottery)

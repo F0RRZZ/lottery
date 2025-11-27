@@ -27,6 +27,7 @@ class LotteryCreate(BaseModel):
     start_at: datetime
     preview_big: Optional[str] = None
     preview_small: Optional[str] = None
+    lottery_type: Optional[str] = None
 
 
 class LotteryUpdate(BaseModel):
