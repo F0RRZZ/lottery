@@ -11,7 +11,7 @@ const timeToShow = ref("");
 const dateToFormatDate = (unFormatDate) => {
   return unFormatDate.replace(
     /(\d+)-(\d+)-(\d+)T(\d+):(\d+):(\d+)\.(\d+)/,
-    (_, y, m, d, h, min) => `${d}.${m}.${y} ${h}:${min}`
+    (_, y, m, d, h, min) => `${d.padStart(2,'0')}.${m.padStart(2,'0')}.${y} ${h.padStart(2,'0')}:${min.padStart(2,'0')}`
   );
 };
 
@@ -19,11 +19,11 @@ let timerToUpdateTime = null;
 
 onMounted(() => {
   timerToUpdateTime = setInterval(() => {
-    if (props.lottery.start_at > new Date()) {
+    if (new Date(props.lottery.start_at) > new Date()) {
       gameStatus.value = "not_started";
       timeToShow.value = dateToFormatDate(props.lottery.start_at);
     } else if (
-      props.lottery.start_at <= new Date() &&
+      new Date(props.lottery.start_at) <= new Date() &&
       props.lottery.ended_at === null
     ) {
       gameStatus.value = "game_on";

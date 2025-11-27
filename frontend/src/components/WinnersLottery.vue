@@ -15,8 +15,8 @@ const numberOfWinners = computed(() =>
 
 <template>
   <div class="main-winners-div">
-    <p class="winners-header">Количество победителей</p>
-    <div class="winners-number-list-div">
+    <p class="winners-header">Победители:</p>
+    <div v-if="numberOfWinners != 0" class="winners-number-list-div">
       <p class="number-of-winners">{{ numberOfWinners }}</p>
       <div class="winners-list-div">
         <p
@@ -28,6 +28,7 @@ const numberOfWinners = computed(() =>
         </p>
       </div>
     </div>
+    <p class="without-winners-p" v-else>Победители ещё не определены</p>
   </div>
 </template>
 
@@ -63,6 +64,12 @@ const numberOfWinners = computed(() =>
 
 .winner-p {
     font-size: 1.5em;
+}
+
+.without-winners-p {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #E4B808;
 }
 
 </style>

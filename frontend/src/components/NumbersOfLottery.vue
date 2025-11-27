@@ -6,12 +6,13 @@ const props = defineProps({
 
 <template>
   <div class="main-numbers-div">
-    <p class="numbers-header">Выпавшие числа</p>
-    <div class="numbers-div">
+    <p class="numbers-header">Выпавшие числа:</p>
+    <div class="numbers-div" v-if="lottery.numbers.length != 0">
       <p class="number" v-for="number in lottery.numbers" :key="number">
         {{ number }}
       </p>
     </div>
+    <p class="without-numbers-p" v-else>Чисел ещё нет</p>
   </div>
 </template>
 
@@ -26,6 +27,12 @@ const props = defineProps({
 .numbers-header {
   font-size: 2em;
   font-weight: bold;
+}
+
+.without-numbers-p {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #E4B808;
 }
 
 .numbers-div {
@@ -50,6 +57,6 @@ const props = defineProps({
   margin: 5px;
   font-size: 2.5em;
   border-radius: 50%;
-  border: #E4B808 solid 4px;
+  border: #e4b808 solid 4px;
 }
 </style>

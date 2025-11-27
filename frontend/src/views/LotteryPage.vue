@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, reactive } from "vue";
+import { onMounted, ref, reactive, onUnmounted } from "vue";
 import { useRoute } from "vue-router";
 
 import Header from "../components/HeaderWithButton.vue";
@@ -13,6 +13,8 @@ const backendUrl = "http://localhost:8000";
 const lottery = reactive({});
 const userTickets = ref([]);
 const user_info = reactive({});
+
+let timerToUpdateLotteries;
 
 const props = defineProps({
   id: String,
@@ -44,12 +46,22 @@ const getLottery = async () => {
     (ticket) => ticket.user.id === user_info.id
   );
 
-  userTickets.value = userTickets.value.map(ticket => ({ ...ticket, dropped_numbers: lottery.numbers}));
+  userTickets.value = userTickets.value.map((ticket) => ({
+    ...ticket,
+    dropped_numbers: lottery.numbers,
+  }));
 };
 
 onMounted(async () => {
   await getUserInfo();
   await getLottery();
+  timerToUpdateLotteries = setInterval(getLottery, 1000);
+});
+
+onUnmounted(() => {
+    if(timerToUpdateLotteries) {
+        clearInterval(timerToUpdateLotteries);
+    }
 });
 
 const headerDivButtonText = ref("Мой профиль");
@@ -61,17 +73,27 @@ const headerDivButtonLink = ref("/user-profile");
     :headerDivButtonText="headerDivButtonText"
     :headerDivButtonLink="headerDivButtonLink"
   />
+  <p class="name-of-lottery-p">{{ lottery.name }}</p>
   <GameTimer v-if="Object.keys(lottery).length !== 0" :lottery="lottery" />
-  <NumbersOfLottery v-if="Object.keys(lottery).length !== 0" :lottery="lottery" />
+  <NumbersOfLottery
+    v-if="Object.keys(lottery).length !== 0"
+    :lottery="lottery"
+  />
   <WinnersLottery v-if="Object.keys(lottery).length !== 0" :lottery="lottery" />
   <LotteryUserTickets
-    v-if="userTickets.length != 0"
     :userTickets="userTickets"
     :lottery_id="lottery.id"
     :start_at="lottery.start_at"
+    :dropped_numbers="lottery.numbers"
   />
 </template>
 <style scoped>
+.name-of-lottery-p {
+  margin: 40px 20px 65px 20px;
+  font-size: 2em;
+  font-weight: bold;
+}
+
 ::v-deep .tickets-div {
   padding: 0px;
 }
@@ -88,6 +110,7 @@ const headerDivButtonLink = ref("/user-profile");
 }
 
 @media (max-width: 700px) {
+  name-of-lottery-p,
   ::v-deep .p-header,
   ::v-deep .winners-header,
   ::v-deep .numbers-header,
@@ -107,6 +130,7 @@ const headerDivButtonLink = ref("/user-profile");
     grid-template-rows: repeat(3, 50px);
   }
 
+  name-of-lottery-p,
   ::v-deep .p-header,
   ::v-deep .winners-header,
   ::v-deep .numbers-header,
@@ -141,6 +165,7 @@ const headerDivButtonLink = ref("/user-profile");
     padding: 6px 10px 0px 10px;
   }
 
+  name-of-lottery-p,
   ::v-deep .p-header,
   ::v-deep .winners-header,
   ::v-deep .numbers-header,

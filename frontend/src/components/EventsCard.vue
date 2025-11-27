@@ -18,7 +18,10 @@ defineProps({
           :key="item.id"
           :to="`/lottery/${item.id}`"
         >
-          <img :src="item.image" :alt="'Розыгрыш №' + item.id" />
+          <img
+            :src="`http://localhost:1337${item.preview_small}`"
+            :alt="'Розыгрыш №' + item.id"
+          />
         </router-link>
       </div>
     </div>

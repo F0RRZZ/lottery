@@ -5,13 +5,20 @@ import Ticket from "../components/Ticket.vue";
 const props = defineProps({
   userTickets: Array,
   lottery_id: Number,
-  start_at: Date
+  start_at: Date,
+  dropped_numbers: Array,
 });
 
 const isSold = ref(false);
 
 const buyTicket = async () => {
-  if (new Date() > new Date(props.start_at)) isSold.value = true;
+  if (
+    new Date() > new Date(props.start_at) ||
+    props.dropped_numbers.length != 0
+  ) {
+    isSold.value = true;
+    return;
+  }
   const access_token = localStorage.getItem("access_token");
   const response = await fetch("http://localhost:8000/api/tickets", {
     method: "POST",
@@ -28,7 +35,7 @@ const buyTicket = async () => {
   <div class="main-user-tickets-div">
     <p class="tickets-header">Ваши билеты</p>
     <button @click="buyTicket">Купить билет</button>
-    <p class="error-p" v-if="isSold">Время покупки истекло!</p>
+    <p class="error-p" v-if="isSold">Больше билеты купить нельзя!</p>
     <div class="tickets-div">
       <Ticket v-for="ticket in userTickets" :key="ticket.id" :ticket="ticket" />
     </div>

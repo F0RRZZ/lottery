@@ -36,7 +36,7 @@ const nextRightDraw = () => {
           <transition :name="nameOfImgTransition" mode="out-in">
             <img
               :key="curBigDrawIndex"
-              :src="lotteries[curBigDrawIndex].image"
+              :src="`http://localhost:1337${lotteries[curBigDrawIndex].preview_big}`"
               alt="big-draw-image"
             />
           </transition>
