@@ -8,6 +8,7 @@ from src.lotteries.models import Lottery
 from src.lotteries.repository import LotteryRepository
 from src.lotteries.schemas import LotteryCreate
 from src.lotteries.schemas import LotteryResponse
+from src.lotteries.schemas import LotteryResponseAfterCreate
 from src.lotteries.schemas import LotteryUpdate
 from src.lotteries.tasks import run_lottery
 from src.task_app import broker
@@ -31,9 +32,12 @@ class LotteryService:
     async def create_lottery(
         self,
         lottery_data: LotteryCreate,
-    ) -> LotteryResponse:
+    ) -> LotteryResponseAfterCreate:
         lottery = await self.lotteries_repo.create_lottery(lottery_data)
-        return LotteryResponse.model_validate(lottery, from_attributes=True)
+        return LotteryResponseAfterCreate.model_validate(
+            lottery,
+            from_attributes=True,
+        )
 
     async def update_lottery(
         self,

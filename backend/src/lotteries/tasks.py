@@ -1,5 +1,6 @@
 import asyncio
 from collections.abc import Sequence
+from datetime import datetime
 import logging
 import random
 from typing import List, Optional
@@ -65,6 +66,10 @@ async def run_lottery(lottery_id: int) -> TicketResponse:  # noqa: CCR001
             ticket.status = 'LOSE'
             await session.commit()
             await session.refresh(ticket)
+
+    lottery.ended_at = datetime.now()
+    await session.commit()
+    await session.refresh(lottery)
 
     return TicketResponse.model_validate(winner, from_attributes=True)
 
