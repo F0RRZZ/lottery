@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref, reactive } from "vue";
-import { useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 
 import Header from "../components/HeaderWithButton.vue";
 import GameTimer from "../components/GameTimer.vue";
@@ -8,394 +8,52 @@ import NumbersOfLottery from "../components/NumbersOfLottery.vue";
 import WinnersLottery from "../components/WinnersLottery.vue";
 import LotteryUserTickets from "../components/LotteryUserTickets.vue";
 
-const router = useRouter();
+const router = useRoute();
 const backendUrl = "http://localhost:8000";
-const lottery = reactive({
-  id: 0,
-  name: "Лоттерея №52",
-  tickets: [
-    {
-      id: 1432,
-      user: {
-        email: "user@example.com",
-        username: "Wu_oR5yss6xcgpnzP5Kr1Wh9Vyq2Fg1KCFUB6k5bMBL4BdEe0",
-        name: "string",
-        surname: "string",
-        patronymic: "string",
-        id: 2,
-        is_active: true,
-        created_at: "2025-11-24T12:21:52.924Z",
-        updated_at: "2025-11-24T12:21:52.924Z",
-      },
-      status: "win",
-      lottery_id: 0,
-      numbers: [
-        4,
-        null,
-        27,
-        null,
-        null,
-        null,
-        62,
-        78,
-        90,
-        4,
-        null,
-        27,
-        null,
-        null,
-        null,
-        62,
-        78,
-        90,
-        4,
-        null,
-        27,
-        null,
-        null,
-        null,
-        62,
-        78,
-        90,
-        4,
-        null,
-        27,
-        null,
-        null,
-        null,
-        62,
-        78,
-        90,
-        4,
-        null,
-        27,
-        null,
-        null,
-        null,
-        62,
-        78,
-        90,
-        4,
-        null,
-        27,
-        null,
-        null,
-        null,
-        62,
-        78,
-        90,
-      ],
-    },
-    {
-      id: 1432,
-      user: {
-        email: "user@example.com",
-        username: "Wu_oR5yss6xcgpnzP5Kr1Wh9Vyq2Fg1KCFUB6k5bMBL4BdEe0",
-        name: "string",
-        surname: "string",
-        patronymic: "string",
-        id: 1,
-        is_active: true,
-        created_at: "2025-11-24T12:21:52.924Z",
-        updated_at: "2025-11-24T12:21:52.924Z",
-      },
-      status: "not played",
-      lottery_id: 0,
-      numbers: [
-        4,
-        null,
-        27,
-        null,
-        null,
-        null,
-        62,
-        78,
-        90,
-        4,
-        null,
-        27,
-        null,
-        null,
-        null,
-        62,
-        78,
-        90,
-        4,
-        null,
-        27,
-        null,
-        null,
-        null,
-        62,
-        78,
-        90,
-        4,
-        null,
-        27,
-        null,
-        null,
-        null,
-        62,
-        78,
-        90,
-        4,
-        null,
-        27,
-        null,
-        null,
-        null,
-        62,
-        78,
-        90,
-        4,
-        null,
-        27,
-        null,
-        null,
-        null,
-        62,
-        78,
-        90,
-      ],
-    },
-    {
-      id: 1432,
-      user: {
-        email: "user@example.com",
-        username: "Wu_oR5yss6xcgpnzP5Kr1Wh9Vyq2Fg1KCFUB6k5bMBL4BdEe0",
-        name: "string",
-        surname: "string",
-        patronymic: "string",
-        id: 3,
-        is_active: true,
-        created_at: "2025-11-24T12:21:52.924Z",
-        updated_at: "2025-11-24T12:21:52.924Z",
-      },
-      status: "win",
-      lottery_id: 0,
-      numbers: [
-        4,
-        null,
-        27,
-        null,
-        null,
-        null,
-        62,
-        78,
-        90,
-        4,
-        null,
-        27,
-        null,
-        null,
-        null,
-        62,
-        78,
-        90,
-        4,
-        null,
-        27,
-        null,
-        null,
-        null,
-        62,
-        78,
-        90,
-        4,
-        null,
-        27,
-        null,
-        null,
-        null,
-        62,
-        78,
-        90,
-        4,
-        null,
-        27,
-        null,
-        null,
-        null,
-        62,
-        78,
-        90,
-        4,
-        null,
-        27,
-        null,
-        null,
-        null,
-        62,
-        78,
-        90,
-      ],
-    },
-  ],
-  start_at: "2025-11-24T12:21:52.924Z",
-  ended_at: "2025-11-24T12:21:52.924Z",
-  numbers: [
-    0, 1, 15, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 8, 9, 10, 1, 2, 3, 4, 5,
-  ],
+const lottery = reactive({});
+const userTickets = ref([]);
+const user_info = reactive({});
+
+const props = defineProps({
+  id: String,
 });
-const userTickets = reactive([
-  {
-    id: 1433,
-    user: {
-      email: "user@example.com",
-      username: "Wu_oR5yss6xcgpnzP5Kr1Wh9Vyq2Fg1KCFUB6k5bMBL4BdEe0",
-      name: "string",
-      surname: "string",
-      patronymic: "string",
-      id: 2,
-      is_active: true,
-      created_at: "2025-11-24T12:21:52.924Z",
-      updated_at: "2025-11-24T12:21:52.924Z",
-    },
-    status: "win",
-    lottery_id: 0,
-    numbers: [
-      4,
-      null,
-      27,
-      null,
-      null,
-      null,
-      62,
-      78,
-      90,
-      4,
-      null,
-      27,
-      null,
-      null,
-      null,
-      62,
-      78,
-      90,
-      4,
-      null,
-      27,
-      null,
-      null,
-      null,
-      62,
-      78,
-      90,
-      4,
-      null,
-      27,
-      null,
-      null,
-      null,
-      62,
-      78,
-      90,
-      4,
-      null,
-      27,
-      null,
-      null,
-      null,
-      62,
-      78,
-      90,
-      4,
-      null,
-      27,
-      null,
-      null,
-      null,
-      62,
-      78,
-      90,
-    ],
-  },
-  {
-    id: 1432,
-    user: {
-      email: "user@example.com",
-      username: "Wu_oR5yss6xcgpnzP5Kr1Wh9Vyq2Fg1KCFUB6k5bMBL4BdEe0",
-      name: "string",
-      surname: "string",
-      patronymic: "string",
-      id: 1,
-      is_active: true,
-      created_at: "2025-11-24T12:21:52.924Z",
-      updated_at: "2025-11-24T12:21:52.924Z",
-    },
-    status: "not played",
-    lottery_id: 0,
-    numbers: [
-      4,
-      null,
-      27,
-      null,
-      null,
-      null,
-      62,
-      78,
-      90,
-      4,
-      null,
-      27,
-      null,
-      null,
-      null,
-      62,
-      78,
-      90,
-      4,
-      null,
-      27,
-      null,
-      null,
-      null,
-      62,
-      78,
-      90,
-      4,
-      null,
-      27,
-      null,
-      null,
-      null,
-      62,
-      78,
-      90,
-      4,
-      null,
-      27,
-      null,
-      null,
-      null,
-      62,
-      78,
-      90,
-      4,
-      null,
-      27,
-      null,
-      null,
-      null,
-      62,
-      78,
-      90,
-    ],
-  },
-]);
 
-// onMounted(async () => {
-//     const response = await fetch(backendUrl + "/api/lottery/" + router.params.id, {
-//         method: "POST",
-//         headers: {
-//             Authorization: `Bearer ${localStorage.getItem("access_token")}`
-//         }
-//     });
-//     lottery = await response.json();
-// });
+const getUserInfo = async () => {
+  const access_token = localStorage.getItem("access_token");
+  const response = await fetch("http://localhost:8000/api/auth/me", {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
+  });
+  const data = await response.json();
+  Object.assign(user_info, data);
+};
 
-const headerDivButtonText = ref("На главную");
-const headerDivButtonLink = ref("/");
+const getLottery = async () => {
+  const response = await fetch(`${backendUrl}/api/lottery/${props.id}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+    },
+  });
+  let data = await response.json();
+  Object.assign(lottery, data);
+
+  userTickets.value = lottery.tickets.filter(
+    (ticket) => ticket.user.id === user_info.id
+  );
+
+  userTickets.value = userTickets.value.map(ticket => ({ ...ticket, dropped_numbers: lottery.numbers}));
+};
+
+onMounted(async () => {
+  await getUserInfo();
+  await getLottery();
+});
+
+const headerDivButtonText = ref("Мой профиль");
+const headerDivButtonLink = ref("/user-profile");
 </script>
 
 <template>
@@ -403,10 +61,15 @@ const headerDivButtonLink = ref("/");
     :headerDivButtonText="headerDivButtonText"
     :headerDivButtonLink="headerDivButtonLink"
   />
-  <GameTimer :lottery="lottery" />
-  <NumbersOfLottery :lottery="lottery" />
-  <WinnersLottery :lottery="lottery" />
-  <LotteryUserTickets :userTickets="userTickets" />
+  <GameTimer v-if="Object.keys(lottery).length !== 0" :lottery="lottery" />
+  <NumbersOfLottery v-if="Object.keys(lottery).length !== 0" :lottery="lottery" />
+  <WinnersLottery v-if="Object.keys(lottery).length !== 0" :lottery="lottery" />
+  <LotteryUserTickets
+    v-if="userTickets.length != 0"
+    :userTickets="userTickets"
+    :lottery_id="lottery.id"
+    :start_at="lottery.start_at"
+  />
 </template>
 <style scoped>
 ::v-deep .tickets-div {

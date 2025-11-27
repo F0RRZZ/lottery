@@ -10,7 +10,7 @@ const timeToShow = ref("");
 
 const dateToFormatDate = (unFormatDate) => {
   return unFormatDate.replace(
-    /(\d+)-(\d+)-(\d+)T(\d+):(\d+):(\d+)\.(\d+)Z/,
+    /(\d+)-(\d+)-(\d+)T(\d+):(\d+):(\d+)\.(\d+)/,
     (_, y, m, d, h, min) => `${d}.${m}.${y} ${h}:${min}`
   );
 };

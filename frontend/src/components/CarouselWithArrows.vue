@@ -32,12 +32,7 @@ const nextRightDraw = () => {
 
     <div class="gallery">
       <div class="gallery-group-imgs">
-        <router-link
-          :to="{
-            name: 'LotteryPage',
-            params: { id: lotteries[curBigDrawIndex].id },
-          }"
-        >
+        <router-link :to="`/lottery/${lotteries[curBigDrawIndex].id}`">
           <transition :name="nameOfImgTransition" mode="out-in">
             <img
               :key="curBigDrawIndex"

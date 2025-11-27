@@ -10,7 +10,7 @@ const headerDivButtonLink = ref("");
 
 const allLotery = reactive([
   {
-    id: 0,
+    id: 4,
     type: "big",
     name: "Домашняя лотерея",
     image: "/main-page/example-big-draw-1.png",
@@ -37,7 +37,7 @@ const allLotery = reactive([
     numbers: [0],
   },
   {
-    id: 1,
+    id: 6,
     type: "big",
     name: "Лотерея лотерея",
     image: "/main-page/example-big-draw-2.png",
@@ -61,60 +61,6 @@ const allLotery = reactive([
     ],
     start_at: "2026-11-25T11:13:37.856Z",
     ended_at: "2026-11-25T11:13:37.856Z",
-    numbers: [0],
-  },
-    {
-    id: 2,
-    type: "small",
-    name: "Лотерея лотерея 1",
-    image: "/main-page/example-small-card-draw-1.png",
-    tickets: [
-      {
-        id: 0,
-        user: {
-          email: "user@example.com",
-          username: "tYaEFoFZ8oxFq7B7aG5UuZAG9abSUCIy9OjEe_",
-          name: "string",
-          surname: "string",
-          patronymic: "string",
-          id: 0,
-          is_active: true,
-          created_at: "2025-11-25T11:13:37.856Z",
-          updated_at: "2025-11-25T11:13:37.856Z",
-        },
-        lottery_id: 0,
-        numbers: ["string"],
-      },
-    ],
-    start_at: "2026-11-25T11:13:37.856Z",
-    ended_at: "2026-11-25T11:13:37.856Z",
-    numbers: [0],
-  },
-    {
-    id: 3,
-    type: "small",
-    name: "Лотерея лотерея 2",
-    image: "/main-page/example-small-card-draw-2.png",
-    tickets: [
-      {
-        id: 0,
-        user: {
-          email: "user@example.com",
-          username: "tYaEFoFZ8oxFq7B7aG5UuZAG9abSUCIy9OjEe_",
-          name: "string",
-          surname: "string",
-          patronymic: "string",
-          id: 0,
-          is_active: true,
-          created_at: "2025-11-25T11:13:37.856Z",
-          updated_at: "2025-11-25T11:13:37.856Z",
-        },
-        lottery_id: 0,
-        numbers: ["string"],
-      },
-    ],
-    start_at: "2025-11-25T11:13:37.856Z",
-    ended_at: "2025-11-25T11:13:37.856Z",
     numbers: [0],
   },
 ]);

@@ -37,6 +37,7 @@ const routes = [
     name: "LotteryPage",
     component: LotteryPage,
     meta: { requiresAuth: true },
+    props: true
   },
 ];
 

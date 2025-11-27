@@ -1,7 +1,9 @@
 <script setup>
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, onUnmounted, reactive, ref } from "vue";
 
 import UserLotteriesListLottery from "../components/UserLotteriesListLottery.vue";
+
+let timerToUpdateLotteries;
 
 const props = defineProps({
   user_info: Object,
@@ -33,8 +35,14 @@ const getLotteries = async () => {
 
 onMounted(() => {
   getLotteries();
-  setInterval(getLotteries, 1000);
+  timerToUpdateLotteries = setInterval(getLotteries, 1000);
 });
+
+onUnmounted(() => {
+    if (timerToUpdateLotteries) {
+        clearInterval(timerToUpdateLotteries);
+    }
+})
 </script>
 
 <template>

@@ -13,7 +13,11 @@ defineProps({
 
     <div class="carousel-div">
       <div class="group-of-carousel">
-        <router-link v-for="item in lotteries" :key="item.id" :to="{name: 'LotteryPage', params: {id: item.id} }">
+        <router-link
+          v-for="item in lotteries"
+          :key="item.id"
+          :to="`/lottery/${item.id}`"
+        >
           <img :src="item.image" :alt="'Розыгрыш №' + item.id" />
         </router-link>
       </div>
