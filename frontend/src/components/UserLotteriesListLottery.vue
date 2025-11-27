@@ -16,7 +16,7 @@ const props = defineProps({
       <Ticket
         v-for="ticket in lottery.tickets"
         :key="ticket.id"
-        :ticket="ticket"
+        :ticket="{ ...ticket, dropped_numbers: lottery.numbers}"
       />
     </div>
   </div>
