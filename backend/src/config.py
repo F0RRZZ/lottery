@@ -36,6 +36,8 @@ class Settings(BaseSettings):
     RABBITMQ_USER: str = 'guest'
     RABBITMQ_PASSWORD: str = 'guest'
 
+    MEDIA_URL: str = '/media/uploads'
+
     @computed_field
     @property
     def ASYNC_DATABASE_URL(self) -> str:

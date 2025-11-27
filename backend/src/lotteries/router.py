@@ -1,11 +1,16 @@
+import base64
+from pathlib import Path
 from typing import Annotated, Any, Dict, List, Literal
+import uuid
 
 from fastapi import APIRouter
 from fastapi import Depends
 
+from src.config import settings
 from src.lotteries.dependencies import get_lotteries_service
 from src.lotteries.schemas import LotteryCreate
 from src.lotteries.schemas import LotteryResponse
+from src.lotteries.schemas import LotteryResponseAfterCreate
 from src.lotteries.schemas import LotteryUpdate
 from src.lotteries.service import LotteryService
 
@@ -43,8 +48,37 @@ async def create_lottery(
         LotteryService,
         Depends(get_lotteries_service),
     ],
-) -> LotteryResponse:
-    return await lotteries_service.create_lottery(lottery)
+) -> LotteryResponseAfterCreate:
+    big_path = None
+    small_path = None
+
+    media_dir = Path(__file__).parent.parent.parent / 'media' / 'uploads'
+
+    if lottery.preview_big:
+        file_extension = lottery.preview_big.split(';')[0].split('/')[1]
+        filename = f'{uuid.uuid4()}.{file_extension}'
+        big_path = f'{settings.MEDIA_URL}/{filename}'
+
+        image_data = base64.b64decode(lottery.preview_big.split(',')[1])
+        with open(media_dir / filename, 'wb') as f:
+            f.write(image_data)
+
+    if lottery.preview_small:
+        file_extension = lottery.preview_small.split(';')[0].split('/')[1]
+        filename = f'{uuid.uuid4()}.{file_extension}'
+        small_path = f'{settings.MEDIA_URL}/{filename}'
+
+        image_data = base64.b64decode(lottery.preview_small.split(',')[1])
+        with open(media_dir / filename, 'wb') as f:
+            f.write(image_data)
+
+    lottery_data = lottery.model_dump()
+    lottery_data['preview_big'] = str(big_path) if big_path else None
+    lottery_data['preview_small'] = str(small_path) if small_path else None
+
+    return await lotteries_service.create_lottery(
+        LotteryCreate.model_validate(lottery_data),
+    )
 
 
 @router.put('/{lottery_id}')

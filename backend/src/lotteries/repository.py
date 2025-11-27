@@ -36,6 +36,8 @@ class LotteryRepository:
             name=lottery_data.name,
             start_at=lottery_data.start_at,
             numbers=[],
+            preview_big=lottery_data.preview_big,
+            preview_small=lottery_data.preview_small,
         )
 
         self.session.add(lottery)
