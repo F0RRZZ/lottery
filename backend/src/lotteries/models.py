@@ -35,7 +35,7 @@ class Lottery(TimestampMixin, Base):
         nullable=True,
     )
     lottery_type: Mapped[LotteryType] = mapped_column(
-        Enum(LotteryType, name='ticketstatus', create_type=True),
+        Enum(LotteryType, name='lotterytype', create_type=True),
         default=LotteryType.SMALL,
         nullable=False,
     )
