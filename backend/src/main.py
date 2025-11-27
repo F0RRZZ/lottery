@@ -2,7 +2,9 @@ from contextlib import asynccontextmanager
 import logging
 from typing import AsyncGenerator
 
+
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from src.auth.router import router as auth_router
 from src.lotteries.router import router as lotteries_router
@@ -44,6 +46,14 @@ app = FastAPI(
 app.include_router(auth_router)
 app.include_router(tickets_router)
 app.include_router(lotteries_router)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get('/health-check')

@@ -9,7 +9,7 @@ const props = defineProps({
 
 const lotteries = ref([]);
 
-onMounted(async () => {
+const getLotteries = async () => {
   const response = await fetch("http://localhost:8000/api/lottery", {
     method: "GET",
   });
@@ -23,8 +23,17 @@ onMounted(async () => {
       ),
     };
   });
-  lotteries.value = lotteries.value.filter((lottery) => lottery.tickets.length > 0);
-  lotteries.value = lotteries.value.sort((a,b) => new Date(b.start_at) - new Date(a.start_at));
+  lotteries.value = lotteries.value.filter(
+    (lottery) => lottery.tickets.length > 0
+  );
+  lotteries.value = lotteries.value.sort(
+    (a, b) => new Date(b.start_at) - new Date(a.start_at)
+  );
+};
+
+onMounted(() => {
+  getLotteries();
+  setInterval(getLotteries, 1000);
 });
 </script>
 

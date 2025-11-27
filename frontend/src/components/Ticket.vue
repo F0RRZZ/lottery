@@ -1,9 +1,11 @@
 <script setup>
+import { onMounted } from "vue";
 import LottoPlayField from "./LottoPlayField.vue";
 
 defineProps({
   ticket: Object,
 });
+
 </script>
 
 <template>
@@ -28,8 +30,16 @@ defineProps({
     ></p>
   </div>
   <div class="play-fields-div">
-    <LottoPlayField class="lotto-play-field" :numbers="ticket.numbers.flat(2).slice(0, 27)" />
-    <LottoPlayField class="lotto-play-field" :numbers="ticket.numbers.flat(2).slice(27, 55)" />
+    <LottoPlayField
+      class="lotto-play-field"
+      :numbers="ticket.numbers.flat(2).slice(0, 27)"
+      :dropped_numbers="ticket.dropped_numbers"
+    />
+    <LottoPlayField
+      class="lotto-play-field"
+      :numbers="ticket.numbers.flat(2).slice(27, 55)"
+      :dropped_numbers="ticket.dropped_numbers"
+    />
   </div>
 </template>
 
