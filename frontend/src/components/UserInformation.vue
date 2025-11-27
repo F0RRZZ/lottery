@@ -1,19 +1,11 @@
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref, defineProps } from "vue";
 
 const space = ref("&nbsp;");
 
-const text_info = ref({
-  email: "user@example.com",
-  username: "iCHCaX-HVhTn961tqvq-JifMsVxGjPXgx8Q41cIWQe8sIy",
-  name: "Глеб",
-  surname: "Конников",
-  patronymic: "Владимирович",
-  id: 0,
-  is_active: true,
-  created_at: "2025-11-03T14:14:25.388Z",
-  updated_at: "2025-11-03T14:14:25.388Z",
-});
+const props = defineProps({
+    user_info: Object
+})
 
 const text_info_name = ref({
   email: "Электропочта",
@@ -30,16 +22,16 @@ const text_info_name = ref({
     <img class="user-img" src="/user-profile-page/user-image.png" alt="" />
     <div class="text-info-div">
       <p class="initials-p">
-        <span>{{ text_info.surname }} {{ space.value }}</span
-        ><span>{{ text_info.name }} {{ space.value }}</span
-        ><span>{{ text_info.patronymic }}</span>
+        <span>{{ props.user_info.surname }} {{ space.value }}</span
+        ><span>{{ props.user_info.name }} {{ space.value }}</span
+        ><span>{{ props.user_info.patronymic }}</span>
       </p>
-      <p class="info-row-p">{{ text_info_name.id }} : №{{ text_info.id }}</p>
+      <p class="info-row-p">{{ text_info_name.id }} : №{{ props.user_info.id }}</p>
       <p class="info-row-p">
-        {{ text_info_name.email }} : {{ text_info.email }}
+        {{ text_info_name.email }} : {{ props.user_info.email }}
       </p>
       <p class="info-row-p">
-        {{ text_info_name.username }} : {{ text_info.username }}
+        {{ text_info_name.username }} : {{ props.user_info.username }}
       </p>
     </div>
   </div>

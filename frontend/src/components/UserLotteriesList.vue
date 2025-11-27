@@ -1,70 +1,31 @@
 <script setup>
-import { reactive, ref } from "vue";
+import { onMounted, reactive, ref } from "vue";
 
 import UserLotteriesListLottery from "../components/UserLotteriesListLottery.vue";
 
-const lotteries = reactive([
-  {
-    id: 0,
-    name: "Лоттерея №52",
-    tickets: [
-      {
-        id: 1432,
-        user: {
-          email: "user@example.com",
-          username: "Wu_oR5yss6xcgpnzP5Kr1Wh9Vyq2Fg1KCFUB6k5bMBL4BdEe0",
-          name: "string",
-          surname: "string",
-          patronymic: "string",
-          id: 0,
-          is_active: true,
-          created_at: "2025-11-24T12:21:52.924Z",
-          updated_at: "2025-11-24T12:21:52.924Z",
-        },
-        status: "not played",
-        lottery_id: 0,
-        numbers: [4, null, 27, null, null, null, 62, 78, 90, 4, null, 27, null, null, null, 62, 78, 90, 4, null, 27, null, null, null, 62, 78, 90, 4, null, 27, null, null, null, 62, 78, 90, 4, null, 27, null, null, null, 62, 78, 90, 4, null, 27, null, null, null, 62, 78, 90],
-      },
-            {
-        id: 1432,
-        user: {
-          email: "user@example.com",
-          username: "Wu_oR5yss6xcgpnzP5Kr1Wh9Vyq2Fg1KCFUB6k5bMBL4BdEe0",
-          name: "string",
-          surname: "string",
-          patronymic: "string",
-          id: 0,
-          is_active: true,
-          created_at: "2025-11-24T12:21:52.924Z",
-          updated_at: "2025-11-24T12:21:52.924Z",
-        },
-        status: "win",
-        lottery_id: 0,
-        numbers: [4, null, 27, null, null, null, 62, 78, 90, 4, null, 27, null, null, null, 62, 78, 90, 4, null, 27, null, null, null, 62, 78, 90, 4, null, 27, null, null, null, 62, 78, 90, 4, null, 27, null, null, null, 62, 78, 90, 4, null, 27, null, null, null, 62, 78, 90],
-      },
-            {
-        id: 1432,
-        user: {
-          email: "user@example.com",
-          username: "Wu_oR5yss6xcgpnzP5Kr1Wh9Vyq2Fg1KCFUB6k5bMBL4BdEe0",
-          name: "string",
-          surname: "string",
-          patronymic: "string",
-          id: 0,
-          is_active: true,
-          created_at: "2025-11-24T12:21:52.924Z",
-          updated_at: "2025-11-24T12:21:52.924Z",
-        },
-        status: "lose",
-        lottery_id: 0,
-        numbers: [4, null, 27, null, null, null, 62, 78, 90, 4, null, 27, null, null, null, 62, 78, 90, 4, null, 27, null, null, null, 62, 78, 90, 4, null, 27, null, null, null, 62, 78, 90, 4, null, 27, null, null, null, 62, 78, 90, 4, null, 27, null, null, null, 62, 78, 90],
-      },
-    ],
-    start_at: "2025-11-24T12:21:52.924Z",
-    ended_at: "2025-11-24T12:21:52.924Z",
-    numbers: [0],
-  }
-]);
+const props = defineProps({
+  user_info: Object,
+});
+
+const lotteries = ref([]);
+
+onMounted(async () => {
+  const response = await fetch("http://localhost:8000/api/lottery", {
+    method: "GET",
+  });
+
+  const data = await response.json();
+  lotteries.value = data.map((lottery) => {
+    return {
+      ...lottery,
+      tickets: lottery.tickets.filter(
+        (ticket) => ticket.user.id === props.user_info.id
+      ),
+    };
+  });
+  lotteries.value = lotteries.value.filter((lottery) => lottery.tickets.length > 0);
+  lotteries.value = lotteries.value.sort((a,b) => new Date(b.start_at) - new Date(a.start_at));
+});
 </script>
 
 <template>
@@ -94,6 +55,7 @@ const lotteries = reactive([
 .lotteries-div {
   padding: 0px 0px 0px 15px;
   margin-left: 40px;
+  gap: 30px;
   border-left: 5px solid black;
   display: flex;
   flex-direction: column;

@@ -1,11 +1,12 @@
 <script setup>
-import { reactive } from "vue";
+import { onMounted, reactive } from "vue";
 
 import Ticket from "../components/Ticket.vue";
 
-defineProps({
+const props = defineProps({
   lottery: Object,
 });
+
 </script>
 
 <template>
