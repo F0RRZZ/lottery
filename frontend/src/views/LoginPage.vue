@@ -4,7 +4,7 @@ import { useRouter } from "vue-router";
 
 const showPassword = ref(false);
 const showError = ref(false);
-const loginURL = "http://localhost:8000/auth/token";
+const loginURL = "http://localhost:8000/api/auth/token";
 const router = useRouter();
 
 const submitBody = reactive({
@@ -22,6 +22,15 @@ const onSubmit = async () => {
       },
       body: `username=${submitBody.username}&password=${submitBody.password}`,
     });
+
+    if (!response.ok) {
+      const errData = await response.json();
+      console.log("Ошибка сервера:", errData);
+      showError.value = true;
+      showRegisterMessage.value = true;
+      return;
+    }
+
     const data = await response.json();
 
     localStorage.setItem("access_token", data.access_token);

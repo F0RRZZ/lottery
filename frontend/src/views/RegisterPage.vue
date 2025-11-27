@@ -3,9 +3,8 @@ import { ref, reactive, defineEmits } from "vue";
 
 const showPassword = ref(false);
 const showError = ref(false);
-const showSuccess = ref(false);
 const showRegisterMessage = ref(false);
-const registerURL = "http://localhost:8000/auth/register";
+const registerURL = "http://localhost:8000/api/auth/register";
 
 const submitBody = reactive({
   email: "",
@@ -27,6 +26,7 @@ const emptyBody = {
 
 const onSubmit = async () => {
   showRegisterMessage.value = false;
+  showError.value = false;
   try {
     const response = await fetch(registerURL, {
       method: "POST",
@@ -35,10 +35,18 @@ const onSubmit = async () => {
       },
       body: JSON.stringify(submitBody),
     });
+
+    if (!response.ok) {
+      const errData = await response.json();
+      console.log("Ошибка сервера:", errData);
+      showError.value = true;
+      showRegisterMessage.value = true;
+      return;
+    }
+    
     const data = await response.json();
 
     Object.assign(submitBody, emptyBody);
-    showSuccess.value = true;
   } catch (err) {
     showError.value = true;
   }
@@ -81,7 +89,8 @@ const onSubmit = async () => {
           <input
             v-model="submitBody.patronymic"
             type="text"
-            placeholder="Отчество (необязательно)"
+            required
+            placeholder="Отчество"
           />
           <div class="password-div">
             <input
